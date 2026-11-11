@@ -198,6 +198,7 @@
     .modal-body p { margin-bottom: 10px; }
     .modal-body ul { padding-left: 22px; margin-bottom: 10px; } .modal-body li { margin-bottom: 4px; }
     .modal-foot { padding: 14px 30px 22px; text-align: right; border-top: 1px solid var(--border); }
+    .tt-scroll-hint { display: none; font-size: 0.82rem; color: var(--text-muted); text-align: center; margin-bottom: 8px; }
     .data-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
     .btn-add { width: 100%; padding: 10px; border-radius: 8px; border: none; font-family: 'Sarabun', sans-serif; font-size: 0.95rem; font-weight: 600; transition: var(--transition); }
     .btn-add.not-added { background: var(--primary); color: white; }
@@ -361,6 +362,18 @@
       .schedule-sidebar { width: 100%; position: static; }
       .about-desc { flex-direction: column; text-align: center; }
       .filter-row { flex-direction: column; }
+      /* search cards must never be wider than the phone screen */
+      .courses-grid { grid-template-columns: minmax(0, 1fr); }
+      .course-card { min-width: 0; max-width: 100%; overflow: hidden; }
+      .course-meta .meta-row { min-width: 0; flex-wrap: wrap; }
+      .meta-row .section-select { flex: 1 1 100%; width: 100%; min-width: 0; max-width: 100%; }
+      .course-name-th, .course-name-en, .elig-box, .overlap-note, .raw-box, .data-note, .seat-label { overflow-wrap: anywhere; }
+      .elig-box .elig-list { max-width: 100%; }
+      /* timetable keeps its size and scrolls sideways inside its own box */
+      .schedule-layout { align-items: stretch; }
+      .schedule-sidebar, .timetable-wrap { width: 100%; max-width: 100%; }
+      .timetable-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .tt-scroll-hint { display: block; }
     }
     @media print {
       .navbar, .sidebar-actions, .btn-add, .search-section, .hero, .about-section, .quick-features, .toast-container, footer { display: none !important; }
@@ -511,7 +524,8 @@
               <button class="btn-clear" onclick="clearAll()"><i class="fa-solid fa-trash"></i> ล้างตารางทั้งหมด</button>
             </div>
           </div>
-          <div class="timetable-wrap">
+          <div class="tt-scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> เลื่อนตารางซ้าย-ขวาเพื่อดูเวลาทั้งหมด</div>
+        <div class="timetable-wrap">
             <div class="timetable" id="timetable">
               <div id="timetableHeader" class="tt-header"></div>
               <div class="timetable-body" id="timetableBody"></div>
